@@ -35,7 +35,7 @@ type ApiResponse = {
 // This function gets called at build time and also on revalidation
 async function getFeaturedServices() {
   try {
-    const response = await fetch('http://91.197.98.34:8000/api/uslugas?populate=*', {
+    const response = await fetch('https://admin.spb-cosmetologist.ru//api/uslugas?populate=*', {
       next: { revalidate: 3600 }, // Revalidate every hour
     });
 
@@ -69,19 +69,20 @@ export default async function Home() {
   const { services, error } = await getFeaturedServices();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark-theme:bg-gray-900">
-      <header className="bg-white dark-theme:bg-gray-800 shadow-sm">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <header className="bg-white dark:bg-gray-800 shadow-sm">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-800 dark-theme:text-white">Косметолог Ольга</h1>
+              <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Косметолог Ольга</h1>
             </div>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
+
               <nav>
                 <ul className="flex space-x-6">
                   <li>
-                    <Link href="/" className="text-gray-700 dark-theme:text-gray-300 hover:text-blue-500 dark-theme:hover:text-blue-400">
+                    <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
                       Главная
                     </Link>
                   </li>
@@ -150,7 +151,7 @@ export default async function Home() {
                     {service.image && service.image.length > 0 && (
                       <div className="relative h-48 w-full">
                         <Image
-                          src={`http://91.197.98.34:8000${service.image[0].formats?.medium?.url || service.image[0].url}`}
+                          src={`https://admin.spb-cosmetologist.ru/${service.image[0].formats?.medium?.url || service.image[0].url}`}
                           alt={service.title}
                           fill
                           className="object-cover"

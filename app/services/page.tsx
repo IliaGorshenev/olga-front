@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import ThemeToggle from '../components/ThemeToggle';
+import Header from '../components/Header';
 
 type ImageFormat = {
   url: string;
@@ -64,7 +64,7 @@ function groupServicesByFirstLetter(services: Service[]) {
 
 async function getAllServices() {
   try {
-    const response = await fetch('http://91.197.98.34:8000/api/uslugas?populate=*', {
+    const response = await fetch('https://startrixbot.ru/api/uslugas?populate=*', {
       next: { revalidate: 3600 }, // Revalidate every hour
     });
 
@@ -101,19 +101,7 @@ export default async function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark-theme:bg-gray-900">
-      <header className="bg-white dark-theme:bg-gray-800 shadow-sm py-6">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-bold text-gray-800 dark-theme:text-white">Наши услуги</h1>
-            <div className="flex items-center gap-4">
-              <ThemeToggle />
-              <Link href="/" className="text-blue-500 hover:text-blue-700 dark-theme:text-blue-400 dark-theme:hover:text-blue-300">
-                На главную
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header title="Наши услуги" />
 
       <main className="container mx-auto px-4 py-8">
         {error ? (
@@ -135,7 +123,7 @@ export default async function ServicesPage() {
                     {service.image && service.image.length > 0 && (
                       <div className="relative h-48 w-full">
                         <Image
-                          src={`http://91.197.98.34:8000${service.image[0].formats?.medium?.url || service.image[0].url}`}
+                          src={`https://startrixbot.ru${service.image[0].formats?.medium?.url || service.image[0].url}`}
                           alt={service.title}
                           fill
                           className="object-cover"
@@ -166,11 +154,13 @@ export default async function ServicesPage() {
                   <h3 className="text-xl font-bold text-gray-800 dark-theme:text-white mb-4 border-b-2 border-blue-500 pb-2">{group.letter}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {group.services.map((service) => (
-                      <div key={service.id} className="flex items-center p-4 border dark-theme:border-gray-700 rounded hover:bg-gray-50 dark-theme:hover:bg-gray-700 transition-colors duration-200">
+                      <div
+                        key={service.id}
+                        className="flex items-center p-4 border dark-theme:border-gray-700 rounded hover:bg-gray-50 dark-theme:hover:bg-gray-700 transition-colors duration-200">
                         {service.image && service.image.length > 0 && (
                           <div className="relative h-12 w-12 mr-4">
                             <Image
-                              src={`http://91.197.98.34:8000${service.image[0].formats?.thumbnail?.url || service.image[0].url}`}
+                              src={`https://startrixbot.ru${service.image[0].formats?.thumbnail?.url || service.image[0].url}`}
                               alt={service.title}
                               fill
                               className="object-cover rounded-full"

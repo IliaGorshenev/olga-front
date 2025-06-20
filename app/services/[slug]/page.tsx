@@ -87,12 +87,9 @@ function renderRichText(content: any) {
 // Fetch service data by slug
 async function getServiceBySlug(slug: string) {
   try {
-    const response = await fetch(
-      `http://91.197.98.34:8000/api/uslugas?filters[slug][$eq]=${slug}&populate=*`,
-      {
-        next: { revalidate: 3600 }, // Revalidate every hour (ISR)
-      }
-    );
+    const response = await fetch(`https://startrixbot.ru/api/uslugas?filters[slug][$eq]=${slug}&populate=*`, {
+      next: { revalidate: 3600 }, // Revalidate every hour (ISR)
+    });
 
     if (!response.ok) {
       throw new Error('Failed to fetch service');
@@ -114,7 +111,7 @@ async function getServiceBySlug(slug: string) {
 // Generate static paths for all services
 export async function generateStaticParams() {
   try {
-    const response = await fetch('http://91.197.98.34:8000/api/uslugas?fields=slug', {
+    const response = await fetch('https://startrixbot.ru/api/uslugas?fields=slug', {
       next: { revalidate: 3600 }, // Revalidate every hour
     });
 
@@ -161,7 +158,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
               <div className="md:w-1/3 relative">
                 <div className="relative h-80 md:h-full w-full">
                   <Image
-                    src={`http://91.197.98.34:8000${service.image[0].formats?.large?.url || service.image[0].url}`}
+                    src={`https://startrixbot.ru${service.image[0].formats?.large?.url || service.image[0].url}`}
                     alt={service.title}
                     fill
                     className="object-cover"
